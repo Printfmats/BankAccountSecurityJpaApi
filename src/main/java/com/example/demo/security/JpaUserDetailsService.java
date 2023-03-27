@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
-    private final UserBankLoggerRepo userBankLoggerRepo;
+    private  UserBankLoggerRepo userBankLoggerRepo;
     @Autowired
     public JpaUserDetailsService(UserBankLoggerRepo userBankLoggerRepo) {
         this.userBankLoggerRepo = userBankLoggerRepo;
@@ -20,7 +20,7 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserBankLogger> optionalUserAccount = userBankLoggerRepo.findByUsername(username);
+        Optional<UserBankLogger> optionalUserAccount = userBankLoggerRepo.findByLogin(username);
         if (optionalUserAccount.isPresent()) {
             UserBankLogger userBankLogger = optionalUserAccount.get();
             return new UserSecurity(userBankLogger);

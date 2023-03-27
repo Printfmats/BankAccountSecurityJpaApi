@@ -17,8 +17,11 @@ public class UserSecurity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-            return null;
+        return null;
+    }
 
+    public String getAuthoritie() {
+        return userBankLogger.getLogin();
     }
 
     @Override

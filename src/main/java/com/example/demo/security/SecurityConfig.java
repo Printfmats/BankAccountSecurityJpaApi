@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -20,20 +21,28 @@ public class SecurityConfig {
         this.jpaUserDetailsService = jpaUserDetailsService;
     }
 
-    @Bean
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
+        @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf().disable()
-                .formLogin().permitAll()
+                .authorizeHttpRequests()
+                .requestMatchers("/home/**","/css/**").permitAll().anyRequest().authenticated()
                 .and()
-                .logout().permitAll()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .successForwardUrl("/home")
                 .and()
-                .authorizeHttpRequests().anyRequest().authenticated()
+                .logout()
                 .and()
                 .userDetailsService(jpaUserDetailsService)
                 .build();

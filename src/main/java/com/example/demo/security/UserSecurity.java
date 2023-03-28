@@ -19,7 +19,7 @@ public class UserSecurity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
-        
+
     }
 
 //    public String getAuthoritie() {

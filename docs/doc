@@ -1,0 +1,11 @@
+Do zrobienia
+
+1. Połączenie hibernate wszystkich encji
+2. Logowanie na podstawie roli
+3.security - 3 próby logowania
+4.Po 3 próbach jak się loguje jest generowany token do konsoli przekopiowuje do logwania następnego i wchodzę
+  Bcruptem zabezpieczy hasło
+4 security -  remember me
+5. security - recaptcha
+6.Rejestracja strona
+7.Api wewnątrz ale proste   NA TYM KONIEC

@@ -12,6 +12,10 @@
         <input type="text" id="username" name="username" placeholder="Wprowadź login" required>
         <label for="password">Hasło:</label>
         <input type="password" id="password" name="password" placeholder="Wprowadź hasło" required>
+        <h3>Zaloguj się za pomocą:</h3>
+        <div>
+            <a th:href="@{/oauth2/authorization/google}"><img src="https://developers.google.com/identity/images/g-logo.png" alt="Google"></a>
+        </div>
         <button type="submit">Zaloguj się</button>
     </form>
     <p>Nie masz konta? <a href="#">Zarejestruj się</a></p>

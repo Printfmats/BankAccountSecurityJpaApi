@@ -10,6 +10,7 @@ import java.util.Collection;
 public class UserSecurity implements UserDetails {
 
     private final UserBankLogger userBankLogger;
+
     @Autowired
     public UserSecurity(UserBankLogger userBankLogger) {
         this.userBankLogger = userBankLogger;
@@ -18,11 +19,12 @@ public class UserSecurity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+        
     }
 
-    public String getAuthoritie() {
-        return userBankLogger.getLogin();
-    }
+//    public String getAuthoritie() {
+//        return userBankLogger.getLogin();
+//    }
 
     @Override
     public String getPassword() {

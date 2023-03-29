@@ -1,6 +1,6 @@
 Do zrobienia
 
-1. Połączenie hibernate wszystkich encji
+1. Połączenie hibernate wszystkich encji   ZROBIONE 29.03
 2. Logowanie na podstawie roli
 3.security - 3 próby logowania
 4.Po 3 próbach jak się loguje jest generowany token do konsoli przekopiowuje do logwania następnego i wchodzę

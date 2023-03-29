@@ -21,6 +21,17 @@ public class UserInformation {
     @Pattern(regexp="(^$|[0-9]{10})")
     private Integer phone;
 
+    @OneToOne(mappedBy = "userInformation")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public UserInformation() {
     }
 

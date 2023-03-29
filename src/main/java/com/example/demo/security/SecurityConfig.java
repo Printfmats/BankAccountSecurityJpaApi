@@ -11,19 +11,20 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
 
     private final JpaUserDetailsService jpaUserDetailsService;
-
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
     @Autowired
-    public SecurityConfig(JpaUserDetailsService jpaUserDetailsService) {
+    public SecurityConfig(JpaUserDetailsService jpaUserDetailsService, CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
         this.jpaUserDetailsService = jpaUserDetailsService;
+        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
     }
-
-//    @Bean
+    //    @Bean
 //    public PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
@@ -41,9 +42,10 @@ public class SecurityConfig {
                     args.requestMatchers("/api/**","/css/**").permitAll().anyRequest().authenticated();
 
                 })
-                .oauth2Login()
-                .and()
+//                .oauth2Login()
+//                .and()
                 .formLogin()
+                .failureHandler(customAuthenticationFailureHandler)
                 .loginPage("/login").permitAll()
                 .successForwardUrl("/api")
                 .and()
@@ -53,4 +55,5 @@ public class SecurityConfig {
                 .userDetailsService(jpaUserDetailsService)
                 .build();
     }
+
 }

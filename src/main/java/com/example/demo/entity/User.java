@@ -19,6 +19,30 @@ public class User {
     @JoinColumn(name = "id_user_logger")
     private UserBankLogger userBankLogger;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_account")
+    private UserBankAccount bankAccount;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_address")
+    private UserInformation userInformation;
+
+    public UserInformation getUserInformation() {
+        return userInformation;
+    }
+
+    public void setUserInformation(UserInformation userInformation) {
+        this.userInformation = userInformation;
+    }
+
+    public UserBankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(UserBankAccount bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
     public UserBankLogger getUserBankLogger() {
         return userBankLogger;
     }

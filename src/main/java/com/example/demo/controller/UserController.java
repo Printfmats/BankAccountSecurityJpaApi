@@ -12,4 +12,9 @@ public class UserController {
     public String logingPage(){
         return "loginpage";
     }
+
+    @RequestMapping("/registration")
+    public String registerPage(){
+        return "register";
+    }
 }

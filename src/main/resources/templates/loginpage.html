@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Registration page</title>
-    <link rel="stylesheet"  type="text/css" th:href="@{/css/loginstyle.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/loginstyle.css}">
 </head>
 <body>
 <div class="container">
@@ -17,6 +17,9 @@
             <a th:href="@{/oauth2/authorization/google}"><img src="https://developers.google.com/identity/images/g-logo.png" alt="Google"></a>
         </div>
         <button type="submit">Zaloguj się</button>
+        <div th:if="${param.error != null}">
+            <p class="error" th:text="'Nieprawidłowe dane logowania. Pozostało Ci jeszcze ' + ${3 - session.SPRING_SECURITY_LAST_EXCEPTION.attempts} + ' prób logowania.'"></p>
+        </div>
     </form>
     <p>Nie masz konta? <a href="#">Zarejestruj się</a></p>
 </div>

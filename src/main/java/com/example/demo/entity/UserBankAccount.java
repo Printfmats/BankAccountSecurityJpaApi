@@ -16,6 +16,8 @@ public class UserBankAccount {
     @Column(name = "currency",nullable = false)
     private String currency;
 
+
+
 //    @Column(name = "account_non_locked")
 //    private boolean accountNonLocked;
 //

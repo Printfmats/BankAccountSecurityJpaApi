@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UserBankLoggerRepo extends JpaRepository<UserBankLogger,Long> {
     Optional<UserBankLogger> findByLogin(String username);
+
 }

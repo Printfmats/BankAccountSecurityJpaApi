@@ -8,6 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class UserController {
 
+    @RequestMapping("/lockout")
+    public String lockoutPage() {
+        return "lockout";
+    }
+    @RequestMapping("/api")
+    public String apiPage() {
+        return "apipage";
+    }
     @RequestMapping("/login")
     public String logingPage(){
         return "loginpage";

@@ -39,7 +39,10 @@ public class SecurityConfig {
         return httpSecurity
 
                 .authorizeHttpRequests( args ->{
-                    args.requestMatchers("/api/**","/css/**").permitAll().anyRequest().authenticated();
+                    args.requestMatchers("/css/**").permitAll();
+                    args.requestMatchers("/lockout").permitAll();
+                    args.requestMatchers("/api/**").hasAnyRole("ADMIN","USER","GUEST");
+                    args.anyRequest().authenticated();
 
                 })
 //                .oauth2Login()

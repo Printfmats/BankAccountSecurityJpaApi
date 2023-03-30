@@ -18,6 +18,9 @@ public class UserBankLogger {
     @Column(name = "rola", nullable = false)
     private Roles role;
 
+    @Column(name = "blocked")
+    private Boolean blocked;
+
     @OneToOne(mappedBy = "userBankLogger", cascade = CascadeType.ALL)
     private User user;
 
@@ -33,9 +36,18 @@ public class UserBankLogger {
         this.login = login;
         this.password = password;
         this.role = role;
+        blocked = false;
     }
 
     public UserBankLogger() {
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
     }
 
     public Long getIdUserLogger() {

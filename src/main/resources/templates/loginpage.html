@@ -12,6 +12,10 @@
         <input type="text" id="username" name="username" placeholder="Wprowadź login" required>
         <label for="password">Hasło:</label>
         <input type="password" id="password" name="password" placeholder="Wprowadź hasło" required>
+        <div>
+            <input type="checkbox" id="remember-me" name="_spring_security_remember_me"/>
+            <label for="remember-me">Remember Me</label>
+        </div>
         <h3>Zaloguj się za pomocą:</h3>
         <div>
             <a th:href="@{/oauth2/authorization/google}"><img src="https://developers.google.com/identity/images/g-logo.png" alt="Google"></a>
@@ -25,3 +29,4 @@
 </div>
 </body>
 </html>
+

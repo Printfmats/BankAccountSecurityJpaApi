@@ -23,10 +23,6 @@ public class UserSecurity implements UserDetails {
 
     }
 
-//    public String getAuthoritie() {
-//        return userBankLogger.getLogin();
-//    }
-
     @Override
     public String getPassword() {
         return userBankLogger.getPassword();

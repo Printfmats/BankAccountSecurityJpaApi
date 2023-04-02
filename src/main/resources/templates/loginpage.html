@@ -22,11 +22,10 @@
         </div>
         <button type="submit">Zaloguj się</button>
         <div th:if="${param.error != null}">
-            <p class="error" th:text="'Nieprawidłowe dane logowania. Pozostało Ci jeszcze ' + ${3 - session.SPRING_SECURITY_LAST_EXCEPTION.attempts} + ' prób logowania.'"></p>
+            <p class="error" th:text="'Nieprawidłowe dane logowania. Pozostało Ci jeszcze ' + ${attempts} + ' prób logowania.'"></p>
         </div>
     </form>
-    <p>Nie masz konta? <a href="#">Zarejestruj się</a></p>
+    <p>Don't have account? <a href="/registration">Registration</a></p>
 </div>
 </body>
 </html>
-

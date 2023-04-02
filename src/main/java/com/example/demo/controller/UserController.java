@@ -1,5 +1,16 @@
 package com.example.demo.controller;
 
+import jakarta.servlet.http.HttpSession;
+import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.web.WebAttributes;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,12 +23,13 @@ public class UserController {
     public String lockoutPage() {
         return "lockout";
     }
+//    @PreAuthorize("hasRole('USER','ADMIN')")
     @RequestMapping("/api")
     public String apiPage() {
         return "apipage";
     }
-    @RequestMapping("/login")
-    public String logingPage(){
+    @GetMapping("/login")
+    public String showLoginForm() {
         return "loginpage";
     }
 

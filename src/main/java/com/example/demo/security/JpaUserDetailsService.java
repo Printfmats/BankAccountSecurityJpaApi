@@ -20,7 +20,7 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserBankLogger> optionalUserAccount = userBankLoggerRepo.findByLogin(username);
+        Optional<UserBankLogger> optionalUserAccount = Optional.ofNullable(userBankLoggerRepo.findByLogin(username));
         if (optionalUserAccount.isPresent()) {
             UserBankLogger userBankLogger = optionalUserAccount.get();
             return new UserSecurity(userBankLogger);

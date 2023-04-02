@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registerstyle.css}">
+</head>
+<body>
+<div class="container">
+    <form action="/register" method="POST">
+        <h1>Register</h1>
+
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name" name="name" required>
+
+        <label for="surname"><b>Surname</b></label>
+        <input type="text" placeholder="Enter Surname" name="surname" required>
+
+        <label for="city"><b>City</b></label>
+        <input type="text" placeholder="Enter City" name="city" required>
+
+        <label for="country"><b>Country</b></label>
+        <input type="text" placeholder="Enter Country" name="country" required>
+
+        <label for="phone"><b>Phone</b></label>
+        <input type="tel" placeholder="Enter Phone" name="phone" required>
+
+        <label for="street"><b>Street</b></label>
+        <input type="text" placeholder="Enter Street" name="street" required>
+
+        <label for="username"><b>Login</b></label>
+        <input type="text" placeholder="Enter Login" name="username" required>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+
+        <label for="role"><b>Role</b></label>
+        <select name="role" id="role">
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+        </select>
+
+        <button type="submit" class="registerbtn">Register</button>
+        <p>Already have an account? <a href="/login">Log in</a></p>
+    </form>
+</div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.example.demo.security;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,12 +20,12 @@ import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter
 public class SecurityConfig {
 
     private final JpaUserDetailsService jpaUserDetailsService;
-    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
     String myKey = "mySecretKey";
     @Autowired
-    public SecurityConfig(JpaUserDetailsService jpaUserDetailsService, CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
+    public SecurityConfig(JpaUserDetailsService jpaUserDetailsService) {
         this.jpaUserDetailsService = jpaUserDetailsService;
-        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
+
     }
     //    @Bean
 //    public PasswordEncoder passwordEncoder() {
@@ -36,21 +37,20 @@ public class SecurityConfig {
         return NoOpPasswordEncoder.getInstance();
     }
 
-    @Bean
-    RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
-        TokenBasedRememberMeServices.RememberMeTokenAlgorithm encodingAlgorithm = TokenBasedRememberMeServices.RememberMeTokenAlgorithm.SHA256;
-        TokenBasedRememberMeServices rememberMe = new TokenBasedRememberMeServices(myKey, userDetailsService, encodingAlgorithm);
-        rememberMe.setMatchingAlgorithm(TokenBasedRememberMeServices.RememberMeTokenAlgorithm.MD5);
-        return rememberMe;
-    }
+//    @Bean
+//    RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
+//        TokenBasedRememberMeServices.RememberMeTokenAlgorithm encodingAlgorithm = TokenBasedRememberMeServices.RememberMeTokenAlgorithm.SHA256;
+//        TokenBasedRememberMeServices rememberMe = new TokenBasedRememberMeServices(myKey, userDetailsService, encodingAlgorithm);
+//        rememberMe.setMatchingAlgorithm(TokenBasedRememberMeServices.RememberMeTokenAlgorithm.MD5);
+//        return rememberMe;
+//    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests( args ->{
-                    args.requestMatchers("/css/**").permitAll();
-                    args.requestMatchers("/lockout").permitAll();
-                    args.requestMatchers("/api/**").hasAnyRole("ADMIN","USER","GUEST");
-                    args.anyRequest().authenticated();
+                    args.requestMatchers("/css/**","/registration").permitAll();
+                    args.requestMatchers("/api/**").authenticated();
+                    args.dispatcherTypeMatchers(DispatcherType.ASYNC, DispatcherType.ERROR).permitAll(); //allows you to handle asynchronous requests and errors
 
                 })
                 .sessionManagement(session -> {
@@ -61,19 +61,19 @@ public class SecurityConfig {
                     logout.logoutUrl("/logout");
                     logout.addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.COOKIES)));//COOKIES
                     logout.deleteCookies("JSESSIONID");
+                    logout.logoutSuccessUrl("/api"); //ustawienie nowego URL po wylogowaniu
                 })
                 .formLogin(login -> {
                     login.loginPage("/login").permitAll();
-                    login.successForwardUrl("/api");
-                    login.failureHandler(customAuthenticationFailureHandler);
+                    login.defaultSuccessUrl("/api");
                 })
-                .rememberMe(remember -> {
-                    remember
-                            .rememberMeServices(rememberMeServices(jpaUserDetailsService))
-                            .key(myKey)
-                            .tokenValiditySeconds(86400) //remember me is working 24H
-                            .userDetailsService(jpaUserDetailsService);
-                })
+//                .rememberMe(remember -> {
+//                    remember
+//                            .rememberMeServices(rememberMeServices(jpaUserDetailsService))
+//                            .key(myKey)
+//                            .tokenValiditySeconds(86400) //remember me is working 24H
+//                            .userDetailsService(jpaUserDetailsService);
+//                })
                 .sessionManagement(session -> {
                       session.sessionFixation().newSession();//lesser posibility to steal user session
                     }

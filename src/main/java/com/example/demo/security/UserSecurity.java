@@ -40,7 +40,7 @@ public class UserSecurity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isEnabled();
     }
 
     @Override
@@ -50,6 +50,10 @@ public class UserSecurity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
+        if (userBankLogger.getBlocked()) {
+            return false;
+        }
         return true;
     }
+
 }

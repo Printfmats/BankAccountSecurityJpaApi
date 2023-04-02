@@ -17,9 +17,11 @@ public class UserBankLogger {
     @Enumerated(EnumType.STRING)
     @Column(name = "rola", nullable = false)
     private Roles role;
-
     @Column(name = "blocked")
     private Boolean blocked;
+    @Column(name = "failed_login_attempts")
+    private Integer failedLoginAttempts;
+
 
     @OneToOne(mappedBy = "userBankLogger", cascade = CascadeType.ALL)
     private User user;
@@ -37,9 +39,18 @@ public class UserBankLogger {
         this.password = password;
         this.role = role;
         blocked = false;
+        failedLoginAttempts=0;
     }
 
     public UserBankLogger() {
+    }
+
+    public Integer getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(Integer failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
     }
 
     public Boolean getBlocked() {

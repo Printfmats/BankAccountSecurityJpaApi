@@ -23,11 +23,7 @@ public class UserController {
     public String lockoutPage() {
         return "lockout";
     }
-//    @PreAuthorize("hasRole('USER','ADMIN')")
-    @RequestMapping("/api")
-    public String apiPage() {
-        return "apipage";
-    }
+
     @GetMapping("/login")
     public String showLoginForm() {
         return "loginpage";
@@ -36,5 +32,20 @@ public class UserController {
     @RequestMapping("/registration")
     public String registerPage(){
         return "register";
+    }
+
+    @RequestMapping("/api/profil")
+    public String apiProfil() {
+        return "userinfopage";
+    }
+
+    @RequestMapping("/api/payment")
+    public String apiPayment() {
+        return "paymentpage";
+    }
+
+    @RequestMapping("/api/paycheck")
+    public String apiPaycheck() {
+        return "paycheckpage";
     }
 }

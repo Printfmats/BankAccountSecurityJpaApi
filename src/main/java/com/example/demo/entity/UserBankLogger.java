@@ -14,9 +14,8 @@ public class UserBankLogger {
     private String login;
     @Column(name = "password", nullable = false)
     private  String password;
-    @Enumerated(EnumType.STRING)
     @Column(name = "rola", nullable = false)
-    private Roles role;
+    private String role;
     @Column(name = "blocked")
     private Boolean blocked;
     @Column(name = "failed_login_attempts")
@@ -34,7 +33,7 @@ public class UserBankLogger {
         this.user = user;
     }
 
-    public UserBankLogger(String login, String password, Roles role) {
+    public UserBankLogger(String login, String password, String role) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -85,11 +84,11 @@ public class UserBankLogger {
         this.password = password;
     }
 
-    public Roles getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(String  role) {
         this.role = role;
     }
 

@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
     private  UserBankLoggerRepo userBankLoggerRepo;
@@ -20,13 +18,9 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserBankLogger> optionalUserAccount = Optional.ofNullable(userBankLoggerRepo.findByLogin(username));
-        if (optionalUserAccount.isPresent()) {
-            UserBankLogger userBankLogger = optionalUserAccount.get();
-            return new UserSecurity(userBankLogger);
-        } else {
-            throw new UsernameNotFoundException("Not Found");
-        }
+        return userBankLoggerRepo.findByLogin(username)
+                .map(UserSecurity::new)
+                .orElseThrow(() -> new UsernameNotFoundException("NOt FOUND"));
     }
 
 }

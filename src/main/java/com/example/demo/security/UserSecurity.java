@@ -3,8 +3,10 @@ package com.example.demo.security;
 import com.example.demo.entity.UserBankLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -19,10 +21,13 @@ public class UserSecurity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(() -> userBankLogger.getRole().name());
+        return Arrays.stream(userBankLogger
+                        .getRole()
+                        .split(","))
+                .map(SimpleGrantedAuthority::new)
+                .toList();
 
     }
-
     @Override
     public String getPassword() {
         return userBankLogger.getPassword();

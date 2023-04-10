@@ -27,11 +27,6 @@ public class SecurityConfig {
         this.jpaUserDetailsService = jpaUserDetailsService;
 
     }
-    //    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
@@ -50,22 +45,23 @@ public class SecurityConfig {
                 .authorizeHttpRequests( args ->{
                     args.requestMatchers("/css/**","/registration").permitAll();
                     args.requestMatchers("/api/**").authenticated();
+                    args.requestMatchers("/apk/**").hasRole("ADMIN");
                     args.dispatcherTypeMatchers(DispatcherType.ASYNC, DispatcherType.ERROR).permitAll(); //allows you to handle asynchronous requests and errors
 
                 })
-                .sessionManagement(session -> {
-                    session.maximumSessions(1)
-                            .maxSessionsPreventsLogin(true); //prevent a user from logging in multiple times
-                })
+//                .sessionManagement(session -> {
+//                    session.maximumSessions(1)
+//                            .maxSessionsPreventsLogin(true); //prevent a user from logging in multiple times
+//                })
                 .logout( logout ->{
                     logout.logoutUrl("/logout");
                     logout.addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.COOKIES)));//COOKIES
                     logout.deleteCookies("JSESSIONID");
-                    logout.logoutSuccessUrl("/api"); //ustawienie nowego URL po wylogowaniu
+                    logout.logoutSuccessUrl("/login");
                 })
                 .formLogin(login -> {
                     login.loginPage("/login").permitAll();
-                    login.defaultSuccessUrl("/api");
+                    login.defaultSuccessUrl("/api/profil");
                 })
 //                .rememberMe(remember -> {
 //                    remember

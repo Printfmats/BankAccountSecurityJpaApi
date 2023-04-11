@@ -18,8 +18,8 @@ public class UserInformation {
     @Column(name = "strett", nullable = false)
     private String strett;
     @Column(name = "phone", nullable = false)
-    @Pattern(regexp="(^$|[0-9]{10})")
-    private Integer phone;
+//    @Pattern(regexp="(^$|[0-9]{9})")
+    private String phone;
 
     @OneToOne(mappedBy = "userInformation")
     private User user;
@@ -35,7 +35,7 @@ public class UserInformation {
     public UserInformation() {
     }
 
-    public UserInformation(String country, String city, String strett, Integer phone) {
+    public UserInformation(String country, String city, String strett, String phone) {
         this.country = country;
         this.city = city;
         this.strett = strett;
@@ -87,11 +87,11 @@ public class UserInformation {
         this.strett = strett;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }

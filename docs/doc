@@ -6,9 +6,13 @@ Logowanie na podstawie roli
 11.04.2023r
 Poprawienie wizualne front-endu dodanie url nowych stron, możliwość przechodzenia pomiędzy nimi.
 Schowanie url w plikach html
+Możliwości pełnej rejestracji i na jej podstawie logowanie natomiast wymaga to jest poprawek
 
 
 
+
+
+/////////////////////////////////
 3.security - 3 próby logowania
 4.Po 3 próbach jak się loguje jest generowany token do konsoli przekopiowuje do logwania następnego i wchodzę
   Bcruptem zabezpieczy hasło

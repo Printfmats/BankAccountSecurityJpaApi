@@ -55,9 +55,16 @@ public class User {
         this.imie = imie;
         this.nazwisko = nazwisko;
     }
+    public User(String imie, String nazwisko, UserBankLogger userBankLogger, UserInformation userInformation) {
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.userBankLogger = userBankLogger;
+        this.userInformation = userInformation;
+    }
 
     public User() {
     }
+
 
     public Long getIdUser() {
         return idUser;

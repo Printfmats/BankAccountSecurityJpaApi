@@ -7,10 +7,17 @@
 <body>
 <!-- Menu -->
 <div class="menu">
-    <a href="/text1">Text 1</a>
-    <a href="/text2">Text 2</a>
-    <a href="/text3">Text 3</a>
-    <a href="/text4">Text 4</a>
+    <div class="menu-item">
+        <a>New transactions</a>
+        <div class="submenu">
+            <a th:href="${@environment.getProperty('payment.link')}">Payment</a>
+            <a th:href="${@environment.getProperty('paycheck.link')}">Paycheck</a>
+            <a th:href="${@environment.getProperty('transfer.link')}">Transfer</a>
+        </div>
+    </div>
+    <a th:href="${@environment.getProperty('konto.link')}">Konto</a>
+    <a th:href="${@environment.getProperty('mytransactions.link')}">My transactions</a>
+    <a href="/logout">Log out</a>
 </div>
 
 <!-- Sekcja z informacjami o użytkowniku -->

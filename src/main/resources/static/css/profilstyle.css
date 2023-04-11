@@ -1,4 +1,4 @@
-
+        /* Stylizacja menu */
         .menu {
             display: flex;
             justify-content: space-between;
@@ -12,7 +12,33 @@
             color: #000;
         }
 
-        /* Stylizacja sekcji z tekstem */
+        /* Stylizacja rozwijanego menu */
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-item:hover .submenu {
+            display: block;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #f0f0f0;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .submenu a {
+            display: block;
+            margin-top: 5px;
+            text-decoration: none;
+            color: #000;
+        }
+
+        /* Stylizacja sekcji z informacjami */
         .section {
             margin-top: 30px;
         }

@@ -3,67 +3,21 @@
 <head>
     <title>Informacje użytkownika</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/profilstyle.css}">
-    <style>
-        /* Stylizacja menu */
-        .menu {
-            display: flex;
-            justify-content: space-between;
-            background-color: #f0f0f0;
-            padding: 10px;
-        }
-
-        .menu a {
-            margin-right: 10px;
-            text-decoration: none;
-            color: #000;
-        }
-
-        /* Stylizacja rozwijanego menu */
-        .menu-item {
-            position: relative;
-        }
-
-        .menu-item:hover .submenu {
-            display: block;
-        }
-
-        .submenu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #f0f0f0;
-            padding: 10px;
-            z-index: 1;
-        }
-
-        .submenu a {
-            display: block;
-            margin-top: 5px;
-            text-decoration: none;
-            color: #000;
-        }
-
-        /* Stylizacja sekcji z informacjami */
-        .section {
-            margin-top: 30px;
-        }
-    </style>
 </head>
 <body>
 <!-- Menu -->
 <div class="menu">
     <div class="menu-item">
-        <a href="/text1">Text 1</a>
+        <a>New transactions</a>
         <div class="submenu">
-            <a href="/api/payment">Payment</a>
-            <a href="/api/paycheck">Paycheck</a>
-            <a href="/api/transfer">Transfer</a>
+            <a th:href="${@environment.getProperty('payment.link')}">Payment</a>
+            <a th:href="${@environment.getProperty('paycheck.link')}">Paycheck</a>
+            <a th:href="${@environment.getProperty('transfer.link')}">Transfer</a>
         </div>
     </div>
-    <a href="/text2">Text 2</a>
-    <a href="/text3">Text 3</a>
-    <a href="/text4">Text 4</a>
+    <a th:href="${@environment.getProperty('konto.link')}">Konto</a>
+    <a th:href="${@environment.getProperty('mytransactions.link')}">My transactions</a>
+    <a href="/logout">Log out</a>
 </div>
 
 <div class="section">

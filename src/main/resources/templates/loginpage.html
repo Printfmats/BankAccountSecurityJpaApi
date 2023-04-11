@@ -25,7 +25,7 @@
             <p class="error" th:text="'Nieprawidłowe dane logowania. Pozostało Ci jeszcze ' + ${attempts} + ' prób logowania.'"></p>
         </div>
     </form>
-    <p>Don't have account? <a href="/registration">Registration</a></p>
+    <p>Don't have account? <a th:href="${@environment.getProperty('registration.link')}">Registration</a></p>
 </div>
 </body>
 </html>

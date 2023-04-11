@@ -42,7 +42,7 @@
         </select>
 
         <button type="submit" class="registerbtn">Register</button>
-        <p>Already have an account? <a href="/login">Log in</a></p>
+        <p>Already have an account? <a th:href="${@environment.getProperty('login.link')}">Log in</a></p>
     </form>
 </div>
 </body>

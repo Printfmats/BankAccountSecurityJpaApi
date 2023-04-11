@@ -45,7 +45,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests( args ->{
                     args.requestMatchers("/css/**","/registration").permitAll();
                     args.requestMatchers("/api/**").authenticated();
-                    args.requestMatchers("/apk/**").hasRole("ADMIN");
                     args.dispatcherTypeMatchers(DispatcherType.ASYNC, DispatcherType.ERROR).permitAll(); //allows you to handle asynchronous requests and errors
 
                 })

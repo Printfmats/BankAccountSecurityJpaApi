@@ -31,7 +31,7 @@ public class UserController {
 
     @RequestMapping("/registration")
     public String registerPage(){
-        return "register";
+        return "registerpage";
     }
 
     @RequestMapping("/api/profil")
@@ -47,5 +47,14 @@ public class UserController {
     @RequestMapping("/api/paycheck")
     public String apiPaycheck() {
         return "paycheckpage";
+    }
+    @RequestMapping("/api/transfer")
+    public String apiTransfer() {
+        return "transferpage";
+    }
+
+    @RequestMapping("/api/mytransactions")
+    public String apiMyTransactions() {
+        return "mytransactionspage";
     }
 }

@@ -2,19 +2,14 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-
 @Entity
 @Table(name = "UserBankAccount")
 public class UserBankAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_account")
     private Long idAccount;
     @Column(name = "saldo",nullable = false)
     private double saldo;
-    @Column(name = "currency",nullable = false)
-    private String currency;
 
     @OneToOne(mappedBy = "bankAccount")
     private User user;
@@ -30,18 +25,16 @@ public class UserBankAccount {
     public UserBankAccount() {
     }
 
-    public UserBankAccount(double saldo, String currency) {
+    public UserBankAccount(Long idAccount, double saldo) {
+        this.idAccount = idAccount;
         this.saldo = saldo;
-        this.currency = currency;
     }
 
     @Override
     public String toString() {
         return "UserBankAccount{" +
                 "idAccount=" + idAccount +
-                ", saldo=" + saldo +
-                ", currency='" + currency + '\'' +
-                '}';
+                ", saldo=" + saldo ;
     }
 
     public Long getIdAccount() {
@@ -60,11 +53,4 @@ public class UserBankAccount {
         this.saldo = saldo;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
 }

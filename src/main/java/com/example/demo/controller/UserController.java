@@ -1,25 +1,22 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.User;
+import com.example.demo.entity.UserBankAccount;
 import com.example.demo.entity.UserBankLogger;
 import com.example.demo.entity.UserInformation;
+import com.example.demo.repository.UserBankAccountRepo;
 import com.example.demo.repository.UserBankLoggerRepo;
 import com.example.demo.repository.UserInformationRepo;
 import com.example.demo.repository.UserRepo;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.web.WebAttributes;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.Random;
 
 @Controller
 public class UserController {
@@ -27,12 +24,14 @@ public class UserController {
     private final UserRepo userRepository;
     private final UserInformationRepo userInformationRepository;
     private final UserBankLoggerRepo userBankLoggerRepo;
+    private final UserBankAccountRepo userBankAccountRepo;
 
     @Autowired
-    public UserController(UserRepo userRepository, UserInformationRepo userInformationRepository, UserBankLoggerRepo userBankLoggerRepo) {
+    public UserController(UserRepo userRepository, UserInformationRepo userInformationRepository, UserBankLoggerRepo userBankLoggerRepo, UserBankAccountRepo userBankAccountRepo) {
         this.userRepository = userRepository;
         this.userInformationRepository = userInformationRepository;
         this.userBankLoggerRepo = userBankLoggerRepo;
+        this.userBankAccountRepo = userBankAccountRepo;
     }
 
     @RequestMapping("/lockout")
@@ -74,17 +73,24 @@ public class UserController {
         user.setUserInformation(userInformation);
         userRepository.save(user);
 
+        UserBankAccount userBankAccount = new UserBankAccount();
+        Random random = new Random();
+        long idAccount = Math.abs(random.nextLong() % 1000000000L); // generowanie losowej liczby o 9 cyfrach
+        userBankAccount.setIdAccount(idAccount);
+        userBankAccount.setSaldo(0);
+        userBankAccountRepo.save(userBankAccount);
+
         UserBankLogger userBankLogger = new UserBankLogger();
         userBankLogger.setLogin(username);
         userBankLogger.setPassword(password);
         userBankLogger.setRole(role);
         userBankLoggerRepo.save(userBankLogger);
 
+        user.setBankAccount(userBankAccount);
         user.setUserBankLogger(userBankLogger);
         userRepository.save(user);
         return "redirect:/login";
     }
-
 
 
     @RequestMapping("/api/profil")

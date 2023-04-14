@@ -5,7 +5,6 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/profilstyle.css}">
 </head>
 <body>
-<!-- Menu -->
 <div class="menu">
     <div class="menu-item">
         <a>New transactions</a>
@@ -19,15 +18,29 @@
     <a th:href="${@environment.getProperty('mytransactions.link')}">My transactions</a>
     <a href="/logout">Log out</a>
 </div>
-
-<!-- Sekcja z informacjami o użytkowniku -->
 <div class="section">
-    <h1>Informacje użytkownika</h1>
-<!--    <p>Id adresu: <span th:text="${userInformation.idAdress}"></span></p>-->
-<!--    <p>Kraj: <span th:text="${userInformation.country}"></span></p>-->
-<!--    <p>Miasto: <span th:text="${userInformation.city}"></span></p>-->
-<!--    <p>Ulica: <span th:text="${userInformation.strett}"></span></p>-->
-<!--    <p>Telefon: <span th:text="${userInformation.phone}"></span></p>-->
+    <div class="profile-info">
+        <h1>Logging information</h1>
+        <p>Name: <span th:text="${user.imie}"></span></p>
+        <p>Surname: <span th:text="${user.nazwisko}"></span></p>
+        <p>Login: <span th:text="${user.userBankLogger.login}"></span></p>
+        <p>Password: <span th:text="${user.userBankLogger.password}"></span></p>
+        <p>Role: <span th:text="${user.userBankLogger.role}"></span></p>
+    </div>
+    <div class="profile-info">
+        <h1>Bank account</h1>
+        <p>Account number: <span th:text="${user.bankAccount.idAccount}"></span></p>
+        <p>balance: <span th:text="${user.bankAccount.saldo}"></span></p>
+    </div>
+    <div class="profile-info">
+        <h1>User address</h1>
+        <p>Country: <span th:text="${user.userInformation.country}"></span></p>
+        <p>City: <span th:text="${user.userInformation.city}"></span></p>
+        <p>Street: <span th:text="${user.userInformation.strett}"></span></p>
+        <p>Telephone: <span th:text="${user.userInformation.phone}"></span></p>
+    </div>
 </div>
+
+
 </body>
 </html>

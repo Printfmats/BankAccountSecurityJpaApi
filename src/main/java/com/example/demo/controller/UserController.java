@@ -10,12 +10,17 @@ import com.example.demo.repository.UserInformationRepo;
 import com.example.demo.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @Controller
@@ -50,26 +55,18 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(@RequestParam("name") String name,
-                               @RequestParam("surname") String surname,
-                               @RequestParam("city") String city,
-                               @RequestParam("country") String country,
-                               @RequestParam("phone") String phone,
-                               @RequestParam("street") String street,
-                               @RequestParam("username") String username,
-                               @RequestParam("password") String password,
-                               @RequestParam("role") String role) {
+    public String registerUser(@RequestParam Map<String, String> params) {
         // Tworzenie obiektów encji UserInformation i User
         UserInformation userInformation = new UserInformation();
-        userInformation.setCountry(country);
-        userInformation.setCity(city);
-        userInformation.setStrett(street);
-        userInformation.setPhone(phone);
+        userInformation.setCountry(params.get("country"));
+        userInformation.setCity(params.get("city"));
+        userInformation.setStrett(params.get("street"));
+        userInformation.setPhone(params.get("phone"));
         userInformationRepository.save(userInformation);
 
         User user = new User();
-        user.setImie(name);
-        user.setNazwisko(surname);
+        user.setImie(params.get("name"));
+        user.setNazwisko(params.get("surname"));
         user.setUserInformation(userInformation);
         userRepository.save(user);
 
@@ -81,9 +78,9 @@ public class UserController {
         userBankAccountRepo.save(userBankAccount);
 
         UserBankLogger userBankLogger = new UserBankLogger();
-        userBankLogger.setLogin(username);
-        userBankLogger.setPassword(password);
-        userBankLogger.setRole(role);
+        userBankLogger.setLogin(params.get("username"));
+        userBankLogger.setPassword(params.get("password"));
+        userBankLogger.setRole(params.get("role"));
         userBankLoggerRepo.save(userBankLogger);
 
         user.setBankAccount(userBankAccount);
@@ -93,17 +90,23 @@ public class UserController {
     }
 
 
-    @RequestMapping("/api/profil")
-    public String apiProfil() {
+
+    @GetMapping("/api/profil")  //Ta funkcjonalności posiada wadę wymaga zmiany wyszukiwania za pomocą loginu na id, ponieważ może być wiele takich samych loginów
+    public String apiProfil(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String login = userDetails.getUsername(); // Pobieranie loginu z UserDetails
+        List<User> users = userRepository.findAllWithDetailsByLogin(login);
+        model.addAttribute("user", users.get(0));
         return "userinfopage";
     }
+
+
 
     @RequestMapping("/api/payment")
     public String apiPayment() {
         return "paymentpage";
     }
 
-    @RequestMapping("/api/paycheck")
+    @GetMapping("/api/paycheck")
     public String apiPaycheck() {
         return "paycheckpage";
     }

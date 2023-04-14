@@ -11,6 +11,8 @@ Możliwości pełnej rejestracji i na jej podstawie logowanie natomiast wymaga t
 14.04.2023r
 Użytkownik otrzymuje teraz 9 cyfrowe puste konto bankowe po założeniu konta, wykorzystanie wszystkich 4 encji od teraz
 
+15.04.2023r
+Zrealizowałem stronę wyświetlającą dane zalogowanego użytkownika, zrobiłem to zapytanie z joinami aby zniwelować ilość kodu
 
 /////////////////////////////////
 3.security - 3 próby logowania

@@ -1,44 +1,69 @@
-        /* Stylizacja menu */
-        .menu {
-            display: flex;
-            justify-content: space-between;
-            background-color: #f0f0f0;
-            padding: 10px;
-        }
+/* Stylizacja menu */
+.menu {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    padding: 10px;
+}
 
-        .menu a {
-            margin-right: 10px;
-            text-decoration: none;
-            color: #000;
-        }
+.menu a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #000;
+}
 
-        /* Stylizacja rozwijanego menu */
-        .menu-item {
-            position: relative;
-        }
+/* Stylizacja rozwijanego menu */
+.menu-item {
+    position: relative;
+}
 
-        .menu-item:hover .submenu {
-            display: block;
-        }
+.menu-item:hover .submenu {
+    display: block;
+}
 
-        .submenu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #f0f0f0;
-            padding: 10px;
-            z-index: 1;
-        }
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f0f0f0;
+    padding: 10px;
+    z-index: 1;
+}
 
-        .submenu a {
-            display: block;
-            margin-top: 5px;
-            text-decoration: none;
-            color: #000;
-        }
+.submenu a {
+    display: block;
+    margin-top: 5px;
+    text-decoration: none;
+    color: #000;
+}
 
-        /* Stylizacja sekcji z informacjami */
-        .section {
-            margin-top: 30px;
-        }
+/* Stylizacja sekcji z informacjami */
+.section {
+    margin-top: 30px;
+}
+
+/* Dodatkowe style do wyświetlania danych profilu */
+.profile-info {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.profile-info h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.profile-info span {
+    font-weight: bold;
+}
+.profile-info {
+
+}

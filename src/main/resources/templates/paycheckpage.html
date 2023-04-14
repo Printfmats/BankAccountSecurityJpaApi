@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Informacje użytkownika</title>
+    <title>Paycheck Page</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/profilstyle.css}">
 </head>
 <body>
-<!-- Menu -->
 <div class="menu">
     <div class="menu-item">
         <a>New transactions</a>
@@ -21,6 +20,17 @@
 </div>
 
 <div class="section">
+    <h1>Paycheck</h1>
+    <form action="/api/paycheck" method="post">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" required>
+        <br>
+        <label for="password">Account Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <input type="submit" value="Withdraw">
+    </form>
 </div>
 </body>
 </html>
+

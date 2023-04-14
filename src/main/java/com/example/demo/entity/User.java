@@ -12,7 +12,7 @@ public class User {
     private Long idUser;
     @Column(name = "name",nullable = false)
     private String imie;
-    @Column(name = "nazwisko", nullable = false)
+    @Column(name = "nazwisko", nullable = false)  //Here should be surname instead of nazwisko
     private String nazwisko;
 
     @OneToOne(cascade = CascadeType.ALL)

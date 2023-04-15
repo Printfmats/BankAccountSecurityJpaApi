@@ -15,9 +15,17 @@
         </div>
     </div>
     <a th:href="${@environment.getProperty('konto.link')}">Account</a>
-    <a th:href="${@environment.getProperty('mytransactions.link')}">My transactions</a>
+    <div class="menu-item">
+        <a class="submenu-trigger">My transactions</a>
+        <div class="submenu">
+            <a href="/api/payment-and-paycheck-history">Payment and paycheck history</a>
+            <a href="/api/account-transfer-history">Account transfer history</a>
+        </div>
+    </div>
     <a href="/logout">Log out</a>
 </div>
+
+
 
 <div class="section">
 </div>

@@ -67,3 +67,31 @@
 .profile-info {
 
 }
+.menu {
+    /* Style dla menu */
+}
+.menu-item {
+    /* Style dla poszczególnych elementów menu */
+    position: relative; /* Ustalamy pozycję jako relatywną, aby submenu były absolutne względem tego elementu */
+}
+
+.submenu {
+    /* Style dla submenu */
+    position: absolute; /* Ustalamy pozycję jako absolutną, aby submenu były ukryte i mogły być wyświetlone na żądanie */
+    top: 100%; /* Ustalamy odstęp od góry dla submenu */
+    left: 0; /* Ustalamy odstęp od lewej krawędzi dla submenu */
+    display: none; /* Ukrywamy submenu na początku */
+}
+
+.menu-item:hover .submenu {
+    /* Style dla wyświetlania submenu po najechaniu na element menu */
+    display: block; /* Wyświetlamy submenu przy najechaniu na element menu */
+}
+
+.submenu a {
+    /* Style dla elementów submenu */
+    display: block; /* Ustalamy elementy jako blokowe, aby były łatwe do kliknięcia */
+    /* Inne style, takie jak kolor, czcionka, marginesy, itp. */
+}
+
+

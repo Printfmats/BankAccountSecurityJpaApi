@@ -15,11 +15,27 @@
         </div>
     </div>
     <a th:href="${@environment.getProperty('konto.link')}">Account</a>
-    <a th:href="${@environment.getProperty('mytransactions.link')}">My transactions</a>
+    <div class="menu-item">
+        <a class="submenu-trigger">My transactions</a>
+        <div class="submenu">
+            <a href="/api/payment-and-paycheck-history">Payment and paycheck history</a>
+            <a href="/api/account-transfer-history">Account transfer history</a>
+        </div>
+    </div>
     <a href="/logout">Log out</a>
 </div>
 
+
+
 <div class="section">
+    <h1>Wykonaj transfer</h1>
+    <form action="/transfer" method="post">
+        <label for="numer_konta">Numer konta odbiorcy: </label>
+        <input type="text" id="numer_konta" name="numer_konta" required><br><br>
+        <label for="kwota">Kwota: </label>
+        <input type="number" id="kwota" name="kwota" step="0.01" required><br><br>
+        <input type="submit" value="Wykonaj transfer">
+    </form>
 </div>
 </body>
 </html>

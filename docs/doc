@@ -8,11 +8,16 @@ Poprawienie wizualne front-endu dodanie url nowych stron, możliwość przechodz
 Schowanie url w plikach html
 Możliwości pełnej rejestracji i na jej podstawie logowanie natomiast wymaga to jeszcze poprawek
 
-14.04.2023r
+13.04.2023r
 Użytkownik otrzymuje teraz 9 cyfrowe puste konto bankowe po założeniu konta, wykorzystanie wszystkich 4 encji od teraz
 
-15.04.2023r
+14.04.2023r
 Zrealizowałem stronę wyświetlającą dane zalogowanego użytkownika, zrobiłem to zapytanie z joinami aby zniwelować ilość kodu
+
+15.04.2023r
+Dodanie dwóch encji które reprezentują historie transakcji klientów
+W bazie wygląa wszystko poprawnie
+Poprawienie htmli do stron związanych z manipulacją pieniędzmi na koncie
 
 /////////////////////////////////
 3.security - 3 próby logowania

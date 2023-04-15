@@ -89,8 +89,6 @@ public class UserController {
         return "redirect:/login";
     }
 
-
-
     @GetMapping("/api/profil")  //Ta funkcjonalności posiada wadę wymaga zmiany wyszukiwania za pomocą loginu na id, ponieważ może być wiele takich samych loginów
     public String apiProfil(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         String login = userDetails.getUsername(); // Pobieranie loginu z UserDetails
@@ -98,8 +96,6 @@ public class UserController {
         model.addAttribute("user", users.get(0));
         return "userinfopage";
     }
-
-
 
     @RequestMapping("/api/payment")
     public String apiPayment() {
@@ -114,9 +110,12 @@ public class UserController {
     public String apiTransfer() {
         return "transferpage";
     }
-
-    @RequestMapping("/api/mytransactions")
-    public String apiMyTransactions() {
-        return "mytransactionspage";
+    @RequestMapping("/api/payment-and-paycheck-history")
+    public String apiPayHistory() {
+        return "paymentpaycheckhistorypage";
+    }
+    @RequestMapping("/api/account-transfer-history")
+    public String apiTransferHistory() {
+        return "transferhistorypage";
     }
 }

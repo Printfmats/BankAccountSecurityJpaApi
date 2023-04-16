@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.*;
 import com.example.demo.repository.*;
-import com.example.demo.security.UserSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -105,24 +101,39 @@ public class UserController {
         return "paycheckpage";
     }
     @PostMapping("/api/paycheck")
-    public String apiPaycheck(Model model , UserSecurity userSecurity,
+    public String apiPaycheck(Model model, @AuthenticationPrincipal UserDetails userDetails,
                               @RequestParam("amount") String amount,
                               @RequestParam("password") String password,
-                              @RequestParam("description") String description){
+                              @RequestParam("description") String description) {
 
-        if(Objects.equals(userSecurity.getPassword(), password)){
-            String username = userSecurity.getUsername();
+        System.out.println(userDetails.getPassword());
+        System.out.println(password);
 
-            // Utwórz nowy obiekt UserPayMentCheckHistory i ustaw wartości
+        String username = userDetails.getUsername();
+        Long idaccount = userBankLoggerRepo.findIdAccountByLogin(username);
+        Optional<UserBankAccount> userBankAccountOpt = userBankAccountRepo.findByIdAccount(idaccount);
+
+        if (userBankAccountOpt.isPresent()) {
+            UserBankAccount userBankAccount = userBankAccountOpt.get();
+
+            // Aktualizacja salda
+            double currentSaldo = userBankAccount.getSaldo();
+            double addedAmount = Double.parseDouble(amount);
+            double updatedSaldo = currentSaldo + addedAmount;
+            userBankAccount.setSaldo(updatedSaldo);
+
+            // Zapisanie zmienionej encji w bazie danych
+            userBankAccountRepo.save(userBankAccount);
+
             UserPayMentCheckHistory user = new UserPayMentCheckHistory();
-            user.setNrAccount(userBankLoggerRepo.findAccountIdByLogin(username));
+            user.setNrAccount(idaccount);
             user.setTransactionType("paycheck");
             user.setAmount(amount);
-            user.setDescription(description);
             System.out.println(user);
 
             userPayMentCheckHistoryRepo.save(user);
         }
+
         return "redirect:/api/paycheck";
     }
 

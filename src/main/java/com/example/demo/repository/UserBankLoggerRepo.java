@@ -14,7 +14,8 @@ import java.util.Optional;
 public interface UserBankLoggerRepo extends JpaRepository<UserBankLogger,Long> {
     Optional<UserBankLogger>  findByLogin(String username);
 
-    Long findAccountIdByLogin(@Param("login") String login);
+    @Query("SELECT bankAccount.idAccount FROM UserBankLogger logger JOIN logger.bankAccount bankAccount WHERE logger.login = :login")
+    Long findIdAccountByLogin(@Param("login") String login);
 
     @Query("SELECT u FROM UserBankLogger u " +
             "LEFT JOIN FETCH u.user " +

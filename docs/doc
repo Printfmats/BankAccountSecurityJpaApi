@@ -24,6 +24,7 @@ Poprawienie projektu bazy danych
 Ważna zmiana encji podstawowej w bazie na Logger zamiast User(name,surname) skraca wyszukiwanie sql i ogólnie kod w controlerze
 Z obserwacji moich wynika że jako podstawową tabelę warto dawać z loginem
 Przetestowane wszystko działa poprawnie
+Zrealizowałem wpłacanie gotówki do banku muszę poprawić o sprawdzenie czy hasła się pokrywają i dodać opis w html i kontrolerze
 
 
 /////////////////////////////////

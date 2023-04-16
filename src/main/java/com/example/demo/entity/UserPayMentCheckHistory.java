@@ -1,14 +1,12 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "UserPayMentCheckHistory")
 public class UserPayMentCheckHistory {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_paycheck_payment")
     private Long idPaycheckPayment;
     @Column(name = "nr_account", nullable = false)
@@ -25,6 +23,12 @@ public class UserPayMentCheckHistory {
         this.transactionType = transactionType;
         this.amount = amount;
         this.description = description;
+    }
+
+    public UserPayMentCheckHistory(Long nrAccount, String transactionType, String amount) {
+        this.nrAccount = nrAccount;
+        this.transactionType = transactionType;
+        this.amount = amount;
     }
 
     public UserPayMentCheckHistory() {

@@ -17,10 +17,18 @@ public class UserBankLogger {
     @Column(name = "rola", nullable = false)
     private String role;
 
-
-
-    @OneToOne(mappedBy = "userBankLogger", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_user")
     private User user;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_account")
+    private UserBankAccount bankAccount;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_address")
+    private UserInformation userInformation;
+
 
     public User getUser() {
         return user;
@@ -30,10 +38,35 @@ public class UserBankLogger {
         this.user = user;
     }
 
+    public UserBankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(UserBankAccount bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public UserInformation getUserInformation() {
+        return userInformation;
+    }
+
+    public void setUserInformation(UserInformation userInformation) {
+        this.userInformation = userInformation;
+    }
+
     public UserBankLogger(String login, String password, String role) {
         this.login = login;
         this.password = password;
         this.role = role;
+    }
+
+    public UserBankLogger(String login, String password, String role, User user, UserBankAccount bankAccount, UserInformation userInformation) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+        this.user = user;
+        this.bankAccount = bankAccount;
+        this.userInformation = userInformation;
     }
 
     public UserBankLogger() {

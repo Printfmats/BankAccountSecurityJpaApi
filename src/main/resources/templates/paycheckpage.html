@@ -28,12 +28,16 @@
 
 <div class="section">
     <h1>Paycheck</h1>
-    <form action="/api/paycheck" method="post">
+    <form th:action="@{/api/paycheck}" method="post">
         <label for="amount">Amount:</label>
         <input type="number" id="amount" name="amount" required>
         <br>
         <label for="password">Account Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="text" id="password" name="password" required>
+        <br>
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description">
         <br>
         <input type="submit" value="Withdraw">
     </form>

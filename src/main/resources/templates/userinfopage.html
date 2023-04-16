@@ -29,11 +29,11 @@
 <div class="section">
     <div class="profile-info">
         <h1>Logging information</h1>
-        <p>Name: <span th:text="${user.imie}"></span></p>
-        <p>Surname: <span th:text="${user.nazwisko}"></span></p>
-        <p>Login: <span th:text="${user.userBankLogger.login}"></span></p>
-        <p>Password: <span th:text="${user.userBankLogger.password}"></span></p>
-        <p>Role: <span th:text="${user.userBankLogger.role}"></span></p>
+        <p>Name: <span th:text="${user.user.imie}"></span></p>
+        <p>Surname: <span th:text="${user.user.nazwisko}"></span></p>
+        <p>Login: <span th:text="${user.login}"></span></p>
+        <p>Password: <span th:text="${user.password}"></span></p>
+        <p>Role: <span th:text="${user.role}"></span></p>
     </div>
     <div class="profile-info">
         <h1>Bank account</h1>

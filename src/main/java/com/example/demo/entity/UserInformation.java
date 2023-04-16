@@ -15,30 +15,30 @@ public class UserInformation {
     private String country;
     @Column(name = "city", nullable = false)
     private  String city;
-    @Column(name = "strett", nullable = false)
-    private String strett;
+    @Column(name = "street", nullable = false)
+    private String street;
     @Column(name = "phone", nullable = false)
 //    @Pattern(regexp="(^$|[0-9]{9})")
     private String phone;
 
     @OneToOne(mappedBy = "userInformation")
-    private User user;
+    private UserBankLogger userBankLogger;
 
-    public User getUser() {
-        return user;
+    public UserBankLogger getUserBankLogger() {
+        return userBankLogger;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserBankLogger(UserBankLogger userBankLogger) {
+        this.userBankLogger = userBankLogger;
     }
 
     public UserInformation() {
     }
 
-    public UserInformation(String country, String city, String strett, String phone) {
+    public UserInformation(String country, String city, String street, String phone) {
         this.country = country;
         this.city = city;
-        this.strett = strett;
+        this.street = street;
         this.phone = phone;
     }
 
@@ -50,7 +50,7 @@ public class UserInformation {
                 "idAdress=" + idAdress +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
-                ", strett='" + strett + '\'' +
+                ", strett='" + street + '\'' +
                 ", phone=" + phone +
                 '}';
     }
@@ -80,11 +80,11 @@ public class UserInformation {
     }
 
     public String getStrett() {
-        return strett;
+        return street;
     }
 
     public void setStrett(String strett) {
-        this.strett = strett;
+        this.street = strett;
     }
 
     public String getPhone() {

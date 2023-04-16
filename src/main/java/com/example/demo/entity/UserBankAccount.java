@@ -12,14 +12,14 @@ public class UserBankAccount {
     private double saldo;
 
     @OneToOne(mappedBy = "bankAccount")
-    private User user;
+    private UserBankLogger userBankLogger;
 
-    public User getUser() {
-        return user;
+    public UserBankLogger getUserBankLogger() {
+        return userBankLogger;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserBankLogger(UserBankLogger userBankLogger) {
+        this.userBankLogger = userBankLogger;
     }
 
     public UserBankAccount() {

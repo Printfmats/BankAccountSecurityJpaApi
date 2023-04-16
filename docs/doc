@@ -19,10 +19,22 @@ Dodanie dwóch encji które reprezentują historie transakcji klientów
 W bazie wygląa wszystko poprawnie
 Poprawienie htmli do stron związanych z manipulacją pieniędzmi na koncie
 
+16.04.2023r
+Poprawienie projektu bazy danych
+Ważna zmiana encji podstawowej w bazie na Logger zamiast User(name,surname) skraca wyszukiwanie sql i ogólnie kod w controlerze
+Z obserwacji moich wynika że jako podstawową tabelę warto dawać z loginem
+Przetestowane wszystko działa poprawnie
+
+
 /////////////////////////////////
-3.security - 3 próby logowania
-4.Po 3 próbach jak się loguje jest generowany token do konsoli przekopiowuje do logwania następnego i wchodzę
-  Bcruptem zabezpieczy hasło
-4 security -  remember me
-5. security - recaptcha
-6.Rejestracja strona
+DO ZREALIZOWANIA:
+POPRAWNE POBIERANIE PIENIĘDZY
+    -sprawdzanie czy użytkownik ma odpowiednią ilość środków
+    -sprawdzanie czy wprowadzone hasło jest poprawne
+POPRAWNE WPROWADZANIE PIENIĘDZY
+    -dodanie przymusu hasła również
+Transfery między kontami
+    -również hasło
+
+Wyświetlenie historii transakcji użytkownika
+

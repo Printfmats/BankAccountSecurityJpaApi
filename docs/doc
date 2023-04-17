@@ -26,6 +26,11 @@ Z obserwacji moich wynika że jako podstawową tabelę warto dawać z loginem
 Przetestowane wszystko działa poprawnie
 Zrealizowałem wpłacanie gotówki do banku muszę poprawić o sprawdzenie czy hasła się pokrywają i dodać opis w html i kontrolerze
 
+17.04.2023r
+Użytkownik może dodawać opis do baz danych przy paycheck oraz porównywane są poprawnie hasła
+Natomiast brakuje jakiegoś errora na ekranie aby użytkownik wiedziuał że złe hasło
+Zrobienie payment, wszystko działa
+
 
 /////////////////////////////////
 DO ZREALIZOWANIA:

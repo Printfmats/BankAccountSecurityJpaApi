@@ -41,6 +41,10 @@
         <br>
         <input type="submit" value="Withdraw">
     </form>
+    <div class="error-section">
+        <p th:text="${error}" th:if="${error}"></p>
+    </div>
+</div>
 </div>
 </body>
 </html>

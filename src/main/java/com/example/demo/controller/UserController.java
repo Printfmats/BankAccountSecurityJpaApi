@@ -91,9 +91,49 @@ public class UserController {
         return "userinfopage";
     }
 
-    @RequestMapping("/api/payment")
+    @GetMapping("/api/payment")
     public String apiPayment() {
         return "paymentpage";
+    }
+    @PostMapping("/api/payment")
+    public String apiPayment(Model model, @AuthenticationPrincipal UserDetails userDetails,
+                             @RequestParam("amount") String amount,
+                             @RequestParam("password") String password,
+                             @RequestParam("description") String description){
+
+        String username = userDetails.getUsername();
+        Long idaccount = userBankLoggerRepo.findIdAccountByLogin(username);
+        Optional<UserBankAccount> userBankAccountOpt = userBankAccountRepo.findByIdAccount(idaccount);
+
+        if (userDetails.getPassword().equals(password)) {
+            if (userBankAccountOpt.isPresent()) {
+                UserBankAccount userBankAccount = userBankAccountOpt.get();
+
+                // Aktualizacja salda
+                double currentSaldo = userBankAccount.getSaldo();
+                double takenAmount = Double.parseDouble(amount);
+                if(currentSaldo>=takenAmount){
+                    double updatedSaldo = currentSaldo - takenAmount;
+                    userBankAccount.setSaldo(updatedSaldo);
+
+                    // Zapisanie zmienionej encji w bazie danych
+                    userBankAccountRepo.save(userBankAccount);
+
+                    UserPayMentCheckHistory user = new UserPayMentCheckHistory();
+                    user.setNrAccount(idaccount);
+                    user.setTransactionType("payment");
+                    user.setAmount(amount);
+                    user.setDescription(description);
+
+                    userPayMentCheckHistoryRepo.save(user);
+                }
+
+            }
+            return "redirect:/api/payment";
+        } else {
+            model.addAttribute("error", "Błędne hasło"); // Dodanie komunikatu błędu do modelu
+            return "redirect:/api/payment"; // Przekierowanie na stronę z komunikatem błędu
+        }
     }
 
     @GetMapping("/api/paycheck")
@@ -106,35 +146,36 @@ public class UserController {
                               @RequestParam("password") String password,
                               @RequestParam("description") String description) {
 
-        System.out.println(userDetails.getPassword());
-        System.out.println(password);
-
         String username = userDetails.getUsername();
         Long idaccount = userBankLoggerRepo.findIdAccountByLogin(username);
         Optional<UserBankAccount> userBankAccountOpt = userBankAccountRepo.findByIdAccount(idaccount);
 
-        if (userBankAccountOpt.isPresent()) {
-            UserBankAccount userBankAccount = userBankAccountOpt.get();
+        if (userDetails.getPassword().equals(password)) {
+            if (userBankAccountOpt.isPresent()) {
+                UserBankAccount userBankAccount = userBankAccountOpt.get();
 
-            // Aktualizacja salda
-            double currentSaldo = userBankAccount.getSaldo();
-            double addedAmount = Double.parseDouble(amount);
-            double updatedSaldo = currentSaldo + addedAmount;
-            userBankAccount.setSaldo(updatedSaldo);
+                // Aktualizacja salda
+                double currentSaldo = userBankAccount.getSaldo();
+                double addedAmount = Double.parseDouble(amount);
+                double updatedSaldo = currentSaldo + addedAmount;
+                userBankAccount.setSaldo(updatedSaldo);
 
-            // Zapisanie zmienionej encji w bazie danych
-            userBankAccountRepo.save(userBankAccount);
+                // Zapisanie zmienionej encji w bazie danych
+                userBankAccountRepo.save(userBankAccount);
 
-            UserPayMentCheckHistory user = new UserPayMentCheckHistory();
-            user.setNrAccount(idaccount);
-            user.setTransactionType("paycheck");
-            user.setAmount(amount);
-            System.out.println(user);
+                UserPayMentCheckHistory user = new UserPayMentCheckHistory();
+                user.setNrAccount(idaccount);
+                user.setTransactionType("paycheck");
+                user.setAmount(amount);
+                user.setDescription(description);
 
-            userPayMentCheckHistoryRepo.save(user);
+                userPayMentCheckHistoryRepo.save(user);
+            }
+            return "redirect:/api/paycheck";
+        } else {
+            model.addAttribute("error", "Błędne hasło"); // Dodanie komunikatu błędu do modelu
+            return "redirect:/api/paycheck"; // Przekierowanie na stronę z komunikatem błędu
         }
-
-        return "redirect:/api/paycheck";
     }
 
 

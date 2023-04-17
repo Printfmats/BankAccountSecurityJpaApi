@@ -6,12 +6,13 @@ import jakarta.persistence.*;
 @Table(name = "UserTansferHistory")
 public class UserTansferHistory {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_transfer")
     private Long idTransfer;
     @Column(name = "sender",nullable = false)
-    private String sender;
+    private Long sender;
     @Column(name = "receiver",nullable = false)
-    private String receiver;
+    private Long receiver;
     @Column(name = "amount", nullable = false)
     private String amount;
     @Column(name = "description")
@@ -20,13 +21,13 @@ public class UserTansferHistory {
     public UserTansferHistory() {
     }
 
-    public UserTansferHistory(String sender, String receiver, String amount) {
+    public UserTansferHistory(Long sender, Long receiver, String amount) {
         this.sender = sender;
         this.receiver = receiver;
         this.amount = amount;
     }
 
-    public UserTansferHistory(String sender, String receiver, String amount, String description) {
+    public UserTansferHistory(Long sender, Long receiver, String amount, String description) {
         this.sender = sender;
         this.receiver = receiver;
         this.amount = amount;
@@ -52,19 +53,19 @@ public class UserTansferHistory {
         this.idTransfer = idTransfer;
     }
 
-    public String getSender() {
+    public Long getSender() {
         return sender;
     }
 
-    public void setSender(String sender) {
+    public void setSender(Long sender) {
         this.sender = sender;
     }
 
-    public String getReceiver() {
+    public Long getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(String receiver) {
+    public void setReceiver(Long receiver) {
         this.receiver = receiver;
     }
 

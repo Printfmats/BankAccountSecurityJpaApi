@@ -23,14 +23,16 @@ public class UserController {
     private final UserBankLoggerRepo userBankLoggerRepo;
     private final UserBankAccountRepo userBankAccountRepo;
     private final UserPayMentCheckHistoryRepo userPayMentCheckHistoryRepo;
+    private final UserTransferHistoryRepo userTransferHistoryRepo;
 
     @Autowired
-    public UserController(UserRepo userRepository, UserInformationRepo userInformationRepository, UserBankLoggerRepo userBankLoggerRepo, UserBankAccountRepo userBankAccountRepo, UserPayMentCheckHistoryRepo userPayMentCheckHistoryRepo) {
+    public UserController(UserRepo userRepository, UserInformationRepo userInformationRepository, UserBankLoggerRepo userBankLoggerRepo, UserBankAccountRepo userBankAccountRepo, UserPayMentCheckHistoryRepo userPayMentCheckHistoryRepo, UserTransferHistoryRepo userTransferHistoryRepo) {
         this.userRepository = userRepository;
         this.userInformationRepository = userInformationRepository;
         this.userBankLoggerRepo = userBankLoggerRepo;
         this.userBankAccountRepo = userBankAccountRepo;
         this.userPayMentCheckHistoryRepo = userPayMentCheckHistoryRepo;
+        this.userTransferHistoryRepo = userTransferHistoryRepo;
     }
 
     @RequestMapping("/lockout")
@@ -190,35 +192,51 @@ public class UserController {
                               @RequestParam("amount") String amount,
                               @RequestParam("password") String password,
                               @RequestParam("description") String description) {
-        //Zalogowany użytkownik
+        // Zalogowany użytkownik
         String username = userDetails.getUsername();
         Long senderId = userBankLoggerRepo.findIdAccountByLogin(username);
         Optional<UserBankAccount> userBankAccountOpt = userBankAccountRepo.findByIdAccount(senderId);
+        UserBankAccount userBankAccountSender = userBankAccountOpt.get();
 
+        if (Double.parseDouble(amount) > 0) { // Sprawdź, czy wartość amount jest >0
+            if (userDetails.getPassword().equals(password)) { // Sprawdź hasło
+                if (userBankAccountRepo.findById(account).isPresent()) { // Sprawdź, czy konto, do którego wysyłasz, istnieje w bazie
+                    Optional<UserBankAccount> receiverIdAccount = userBankAccountRepo.findById(account);
+                    UserBankAccount userBankAccountReceiver = receiverIdAccount.get();
+                    // Sprawdź, czy saldo konta wysyłającego jest większe od kwoty transferu
+                    if (userBankAccountSender.getSaldo() >= Double.parseDouble(amount)) {
+                        // Aktualizuj saldo konta wysyłającego
+                        userBankAccountSender.setSaldo(userBankAccountSender.getSaldo() - Double.parseDouble(amount));
+                        // Aktualizuj saldo konta odbiorcy
+                        userBankAccountReceiver.setSaldo(userBankAccountReceiver.getSaldo() + Double.parseDouble(amount));
 
-        if(Double.parseDouble(amount)>0){        //Sprawdzić, czy wartość amount jest >0
-            if (userDetails.getPassword().equals(password)) {  //Sprawdzić hasło
-                if(userBankAccountRepo.findById(account).isPresent()){    //Sprawdzić czy konto, do którego wysyła jest w bazie
+                        // Wprowadź do bazy historii transferu między kontami
+                        UserTansferHistory userTansferHistory = new UserTansferHistory();
+                        userTansferHistory.setAmount(amount);
+                        userTansferHistory.setDescription(description);
+                        userTansferHistory.setReceiver(account);
+                        userTansferHistory.setSender(senderId);
 
-                    Optional<UserBankAccount> recieverIdAccount = userBankAccountRepo.findById(account);
-                    UserBankAccount userBankAccount = recieverIdAccount.get();
-                    userBankAccount.setSaldo(Double.parseDouble(String.valueOf(userBankAccount.getSaldo()))+Double.parseDouble(amount));
-
-                    UserTansferHistory userTansferHistory = new UserTansferHistory();
-                    userTansferHistory.setAmount(amount);
-                    userTansferHistory.setDescription(description);
-                    userTansferHistory.setReceiver(String.valueOf(userBankAccount.getIdAccount()));
-                    userTansferHistory.setSender(String.valueOf(senderId));
-
-
-                    //WSZYSTKO FAJNIE I SUPER ALE WYSYŁAM NIEBIAŃSKIE PIENIĄŻKI I NIE ZABIERAM NIC Z KONTA AKTUALNEGO UŻYTKOWNIKA XD
-                    //wymaga poprawki
+                        // Zapisz zmiany w bazie danych
+                        userBankAccountRepo.save(userBankAccountSender);
+                        userBankAccountRepo.save(userBankAccountReceiver);
+                        userTransferHistoryRepo.save(userTansferHistory);
+                    } else {
+                        System.out.println("Niewystarczające saldo na koncie wysyłającego");
+                    }
+                } else {
+                    System.out.println("Numer konta odbiorcy jest nieprawidłowy");
                 }
+            } else {
+                System.out.println("Nieprawidłowe hasło");
             }
+        } else {
+            System.out.println("Kwota transferu musi być większa od 0");
         }
-        //Na podstawie id muszę zmienić saldo wyszukanego kopnta w bazie łątwe się wydaje bo numer konta do id tej encji
+
         return "transferpage";
     }
+
     @RequestMapping("/api/payment-and-paycheck-history")
     public String apiPayHistory() {
         return "paymentpaycheckhistorypage";

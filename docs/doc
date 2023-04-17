@@ -28,19 +28,12 @@ Zrealizowałem wpłacanie gotówki do banku muszę poprawić o sprawdzenie czy h
 
 17.04.2023r
 Użytkownik może dodawać opis do baz danych przy paycheck oraz porównywane są poprawnie hasła
-Natomiast brakuje jakiegoś errora na ekranie aby użytkownik wiedziuał że złe hasło
+Natomiast brakuje jakiegoś errora na ekranie aby użytkownik wiedział że wprowadził złe hasło
 Zrobienie payment, wszystko działa
+Zrealizowałem transfery między kontami, uwzględniłem 4 ważne warunki które muszą zajść i po testach wygląda bardzo dobrze
 
 
-/////////////////////////////////
-DO ZREALIZOWANIA:
-POPRAWNE POBIERANIE PIENIĘDZY
-    -sprawdzanie czy użytkownik ma odpowiednią ilość środków
-    -sprawdzanie czy wprowadzone hasło jest poprawne
-POPRAWNE WPROWADZANIE PIENIĘDZY
-    -dodanie przymusu hasła również
-Transfery między kontami
-    -również hasło
-
+////////////////////////////////
 Wyświetlenie historii transakcji użytkownika
+Wykluczenie dwóch tych samych loginów ze względu na zbudowanie na tym API jeśli będą dwa takie same loginy mogą być komplikacje z pobieraniem odpowiednich danych
 

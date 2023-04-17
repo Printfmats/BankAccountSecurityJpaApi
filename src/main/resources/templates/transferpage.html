@@ -29,13 +29,26 @@
 
 <div class="section">
     <h1>Wykonaj transfer</h1>
-    <form action="/transfer" method="post">
-        <label for="numer_konta">Numer konta odbiorcy: </label>
-        <input type="text" id="numer_konta" name="numer_konta" required><br><br>
-        <label for="kwota">Kwota: </label>
-        <input type="number" id="kwota" name="kwota" step="0.01" required><br><br>
-        <input type="submit" value="Wykonaj transfer">
+    <form action="/api/transfer" method="post">
+        <label for="account">The account you are sending to:</label>
+        <input type="number" id="account" name="account" required>
+        <br>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" required>
+        <br>
+        <br>
+        <label for="password">Account Password:</label>
+        <input type="text" id="password" name="password" required>
+        <br>
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description">
+        <br>
+        <input type="submit" value="Withdraw">
     </form>
+    <div class="error-section">
+        <p th:text="${error}" th:if="${error}"></p>
+    </div>
 </div>
 </body>
 </html>

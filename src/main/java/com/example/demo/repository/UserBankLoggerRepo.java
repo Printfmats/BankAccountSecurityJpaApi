@@ -17,6 +17,7 @@ public interface UserBankLoggerRepo extends JpaRepository<UserBankLogger,Long> {
     @Query("SELECT bankAccount.idAccount FROM UserBankLogger logger JOIN logger.bankAccount bankAccount WHERE logger.login = :login")
     Long findIdAccountByLogin(@Param("login") String login);
 
+
     @Query("SELECT u FROM UserBankLogger u " +
             "LEFT JOIN FETCH u.user " +
             "LEFT JOIN FETCH u.bankAccount " +

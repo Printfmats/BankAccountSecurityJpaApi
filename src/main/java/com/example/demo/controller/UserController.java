@@ -179,8 +179,44 @@ public class UserController {
     }
 
 
-    @RequestMapping("/api/transfer")
+    @GetMapping("/api/transfer")
     public String apiTransfer() {
+        return "transferpage";
+    }
+
+    @PostMapping("/api/transfer")
+    public String apiTransfer(Model model, @AuthenticationPrincipal UserDetails userDetails,
+                              @RequestParam("account") Long account,
+                              @RequestParam("amount") String amount,
+                              @RequestParam("password") String password,
+                              @RequestParam("description") String description) {
+        //Zalogowany użytkownik
+        String username = userDetails.getUsername();
+        Long senderId = userBankLoggerRepo.findIdAccountByLogin(username);
+        Optional<UserBankAccount> userBankAccountOpt = userBankAccountRepo.findByIdAccount(senderId);
+
+
+        if(Double.parseDouble(amount)>0){        //Sprawdzić, czy wartość amount jest >0
+            if (userDetails.getPassword().equals(password)) {  //Sprawdzić hasło
+                if(userBankAccountRepo.findById(account).isPresent()){    //Sprawdzić czy konto, do którego wysyła jest w bazie
+
+                    Optional<UserBankAccount> recieverIdAccount = userBankAccountRepo.findById(account);
+                    UserBankAccount userBankAccount = recieverIdAccount.get();
+                    userBankAccount.setSaldo(Double.parseDouble(String.valueOf(userBankAccount.getSaldo()))+Double.parseDouble(amount));
+
+                    UserTansferHistory userTansferHistory = new UserTansferHistory();
+                    userTansferHistory.setAmount(amount);
+                    userTansferHistory.setDescription(description);
+                    userTansferHistory.setReceiver(String.valueOf(userBankAccount.getIdAccount()));
+                    userTansferHistory.setSender(String.valueOf(senderId));
+
+
+                    //WSZYSTKO FAJNIE I SUPER ALE WYSYŁAM NIEBIAŃSKIE PIENIĄŻKI I NIE ZABIERAM NIC Z KONTA AKTUALNEGO UŻYTKOWNIKA XD
+                    //wymaga poprawki
+                }
+            }
+        }
+        //Na podstawie id muszę zmienić saldo wyszukanego kopnta w bazie łątwe się wydaje bo numer konta do id tej encji
         return "transferpage";
     }
     @RequestMapping("/api/payment-and-paycheck-history")

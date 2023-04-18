@@ -24,10 +24,23 @@
     </div>
     <a href="/logout">Log out</a>
 </div>
-
-
-
 <div class="section">
+    <h1>Historia wpłat i wypłat</h1>
+    <table>
+        <tr>
+            <th>Numer konta</th>
+            <th>Typ transakcji</th>
+            <th>Kwota</th>
+            <th>Opis</th>
+        </tr>
+        <tr th:each="transaction : ${transactions}">
+            <td th:text="${transaction.nrAccount}"></td>
+            <td th:text="${transaction.transactionType}"></td>
+            <td th:text="${transaction.amount}"></td>
+            <td th:text="${transaction.description}"></td>
+        </tr>
+    </table>
+</div>
 </div>
 </body>
 </html>

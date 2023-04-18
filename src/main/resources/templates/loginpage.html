@@ -17,9 +17,9 @@
             <label for="remember-me">Remember Me</label>
         </div>
         <h3>Zaloguj się za pomocą:</h3>
-        <div>
-            <a th:href="@{/oauth2/authorization/google}"><img src="https://developers.google.com/identity/images/g-logo.png" alt="Google"></a>
-        </div>
+<!--        <div>-->
+<!--            <a th:href="@{/oauth2/authorization/google}"><img src="https://developers.google.com/identity/images/g-logo.png" alt="Google"></a>-->
+<!--        </div>-->
         <button type="submit">Zaloguj się</button>
         <div th:if="${param.error != null}">
             <p class="error" th:text="'Nieprawidłowe dane logowania. Pozostało Ci jeszcze ' + ${attempts} + ' prób logowania.'"></p>

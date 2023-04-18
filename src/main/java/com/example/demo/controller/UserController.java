@@ -237,8 +237,14 @@ public class UserController {
         return "transferpage";
     }
 
-    @RequestMapping("/api/payment-and-paycheck-history")
-    public String apiPayHistory() {
+    @GetMapping("/api/payment-and-paycheck-history")
+    public String apiPayHistory(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+
+        String loginLoggedUser = userDetails.getUsername();   //pobieram login zalogowanego
+        Long idActualLoggedUser = userBankLoggerRepo.findIdAccountByLogin(loginLoggedUser);  // na podstawie loginu wyszukuje numer konta
+        List<UserPayMentCheckHistory> history = userPayMentCheckHistoryRepo.findByNrAccount(idActualLoggedUser);
+        System.out.println(history);
+        model.addAttribute("transactions", history);
         return "paymentpaycheckhistorypage";
     }
     @RequestMapping("/api/account-transfer-history")

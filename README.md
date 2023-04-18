@@ -5,5 +5,9 @@ W trakcie budowy
 ![image](https://user-images.githubusercontent.com/98847639/232378821-8b505db1-4b11-4736-a2c7-fc3a6550020d.png)
 ![image](https://user-images.githubusercontent.com/98847639/232378607-69024282-56be-49e5-bc5a-5170cf20585b.png)
 ![image](https://user-images.githubusercontent.com/98847639/232378643-2b925d53-e000-4eac-a331-b98e549220b1.png)
+![image](https://user-images.githubusercontent.com/98847639/232437708-91eecf4d-d948-4c67-b18b-4bfddea30920.png)
+![image](https://user-images.githubusercontent.com/98847639/232773813-6578ca94-5b22-48c8-b335-89fc69b12544.png)
+
+
 
 

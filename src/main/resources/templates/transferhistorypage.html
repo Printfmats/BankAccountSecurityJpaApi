@@ -25,9 +25,22 @@
     <a href="/logout">Log out</a>
 </div>
 
-
-
 <div class="section">
+    <h1>Historia transferów</h1>
+    <table>
+        <tr>
+            <th>Sender</th>
+            <th>Receiver</th>
+            <th>Amount</th>
+            <th>Description</th>
+        </tr>
+        <tr th:each="transaction : ${transactions}">
+            <td th:text="${transaction.sender}"></td>
+            <td th:text="${transaction.receiver}"></td>
+            <td th:text="${transaction.amount}"></td>
+            <td th:text="${transaction.description}"></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>

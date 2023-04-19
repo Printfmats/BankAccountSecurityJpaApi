@@ -36,8 +36,9 @@ Zrealizowałem transfery między kontami, uwzględniłem 4 ważne warunki które
 Historia payment i paycheck poprawnie wyświetlana dla każdego użytkownika zmiana zamysłu połączeń bazy danych
 Rozpoczęcie bazy od tablicy z loginem skróciło wyszukiwania
 
-
+19.04.2023r
+Zwraca historie transakcji poprawnie
+Warto by było skupić się teraz na ćwiczeniu security i dobrych praktykach, wykorzystać bardziej service
 ////////////////////////////////
-Wyświetlenie historii transakcji użytkownika
 Wykluczenie dwóch tych samych loginów ze względu na zbudowanie na tym API jeśli będą dwa takie same loginy mogą być komplikacje z pobieraniem odpowiednich danych
 

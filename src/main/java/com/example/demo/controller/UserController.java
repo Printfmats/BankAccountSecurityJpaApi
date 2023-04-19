@@ -247,8 +247,18 @@ public class UserController {
         model.addAttribute("transactions", history);
         return "paymentpaycheckhistorypage";
     }
-    @RequestMapping("/api/account-transfer-history")
-    public String apiTransferHistory() {
+    @GetMapping("/api/account-transfer-history")
+    public String apiTransferHistory(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String loginLoggedUser = userDetails.getUsername();   //pobieram login zalogowanego
+        Long idActualLoggedUser = userBankLoggerRepo.findIdAccountByLogin(loginLoggedUser);  // na podstawie loginu wyszukuje numer konta
+        List<UserTansferHistory> history = userTransferHistoryRepo.findBySenderOrReceiver(idActualLoggedUser,idActualLoggedUser);
+        System.out.println(history);
+        model.addAttribute("transactions", history);
+
+        if (history.isEmpty()) {
+            model.addAttribute("noTransactions", true); // Dodaj atrybut informujący o braku transakcji
+        }
         return "transferhistorypage";
     }
+
 }

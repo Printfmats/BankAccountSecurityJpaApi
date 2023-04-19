@@ -1,6 +1,6 @@
 # BankAccountSecurityJpaApi
 W trakcie budowy 
-![image](https://user-images.githubusercontent.com/98847639/231206780-3097abb8-ded8-41aa-bfbe-1689574da027.png)
+![image](https://user-images.githubusercontent.com/98847639/233176045-906e708f-285f-47c6-ade4-b656295d1ec3.png)
 ![image](https://user-images.githubusercontent.com/98847639/231206902-21fd5e86-2cf4-425f-964c-411f55f7bbb4.png)
 ![image](https://user-images.githubusercontent.com/98847639/232378821-8b505db1-4b11-4736-a2c7-fc3a6550020d.png)
 ![image](https://user-images.githubusercontent.com/98847639/232378607-69024282-56be-49e5-bc5a-5170cf20585b.png)
